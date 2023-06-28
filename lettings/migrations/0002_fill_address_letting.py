@@ -20,9 +20,9 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             '''
             -- SQL statements to copy data from the original table to the new table in the new app
-            INSERT INTO lettings_Address (id, title, address_id)
+            INSERT INTO lettings_letting (id, title, address_id)
             SELECT id, title, address_id
-            FROM oc_lettings_site_lettings;
+            FROM oc_lettings_site_letting;
             '''
         ),
     ]

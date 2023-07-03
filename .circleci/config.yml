@@ -8,8 +8,7 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo apt-get update && sudo apt-get install -y
-      
+      - run: sudo dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
       - run:
           name: Build Docker image
           command: |

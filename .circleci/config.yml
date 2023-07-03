@@ -8,6 +8,8 @@ jobs:
     steps:
       - checkout
 
+      - run: sudo apt-get update && sudo apt-get install -y
+      
       - run:
           name: Build Docker image
           command: |

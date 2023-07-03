@@ -1,0 +1,14 @@
+# CircleCI configuration file
+
+version: 2.1
+jobs:
+  build:
+    docker:
+      - image: docker:stable
+    steps:
+      - checkout
+    
+      - run:
+          name: read env
+          command: |
+            ls -la

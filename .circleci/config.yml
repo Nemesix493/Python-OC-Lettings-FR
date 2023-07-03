@@ -6,6 +6,7 @@ jobs:
     docker:
       - image: cimg/base:2023.07
     steps:
+      - checkout
       - setup_remote_docker:
           version: 20.10.7
           docker_layer_caching: true
@@ -14,6 +15,11 @@ jobs:
           name: Start Dockerd
           command: |
             sudo dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 & sleep 5
+
+      - run: 
+          name: Start Dockerd
+          command: |
+            ls -la
 
       - run:
           name: Build Docker image

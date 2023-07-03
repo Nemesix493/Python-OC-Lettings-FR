@@ -7,8 +7,7 @@ jobs:
       - image: cimg/base:2023.07
     steps:
       - checkout
-    
       - run:
-          name: read env
+          name: Build Docker image
           command: |
-            echo "Commit Hash: $CIRCLE_SHA1"
+            docker build -t oc_lettings_site:${COMMIT_HASH} .

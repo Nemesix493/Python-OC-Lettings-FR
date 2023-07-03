@@ -6,4 +6,8 @@ jobs:
     docker:
       - image: cimg/base:2023.07
     steps:
-      - run: docker build -t oc-lettings-site .
+      - checkout
+      - run:
+        name: Build Docker image
+        command: |
+          docker build -t oc-lettings-site .

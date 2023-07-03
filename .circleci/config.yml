@@ -7,6 +7,4 @@ jobs:
       image: ubuntu-2004:2022.07.1
     steps:
       - checkout
-      - run: ls -la
-
-      - run: docker build -t oc-lettings-site .
+      - run: docker build -t oc-lettings-site:${COMMIT_HASH} .

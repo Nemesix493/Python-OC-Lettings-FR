@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
 
-      - run: sudo dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
+      - run: sudo dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 & sleep 5
       - run:
           name: Build Docker image
           command: |

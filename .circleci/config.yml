@@ -11,4 +11,4 @@ jobs:
       - run:
           name: read env
           command: |
-            echo ${COMMIT_HASH}
+            echo "Commit Hash: $CIRCLE_SHA1"

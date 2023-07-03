@@ -11,5 +11,4 @@ jobs:
       - run:
           name: read env
           command: |
-            ls -la
-      
+            echo $COMMIT_HASH

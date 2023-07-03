@@ -10,4 +10,4 @@ jobs:
       - run:
           name: Build Docker image
           command: |
-            docker build -t oc_lettings_site:${COMMIT_HASH} .
+            docker build -t oc-lettings-site:${COMMIT_HASH} .

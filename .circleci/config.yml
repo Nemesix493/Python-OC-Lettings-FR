@@ -15,7 +15,7 @@ jobs:
     machine:
       image: ubuntu-2004:2022.07.1
     steps:
-      - run: docker build -t oc-lettings-site
+      - run: docker build -t oc-lettings-site .
       - run: docker run oc-lettings-site python -m manage tests
 
 

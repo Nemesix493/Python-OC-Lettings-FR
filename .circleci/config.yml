@@ -11,6 +11,12 @@ jobs:
       - run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - run: docker tag oc-lettings-site:${CIRCLE_SHA1} $DOCKERHUB_USERNAME/oc-lettings-site:${CIRCLE_SHA1}
       - run: docker push $DOCKERHUB_USERNAME/oc-lettings-site:${CIRCLE_SHA1}
+  test:
+    machine:
+      image: ubuntu-2004:2022.07.1
+    steps:
+      - run: echo "test job"
+
 
 workflows:
   version: 2
@@ -20,3 +26,6 @@ workflows:
           filters:
             branches:
               only: master
+  test-worklow:
+    jobs:
+      - test:

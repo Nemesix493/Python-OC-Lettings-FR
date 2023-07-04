@@ -28,4 +28,9 @@ workflows:
               only: master
   test-worklow:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              only:
+                - master
+                - develop

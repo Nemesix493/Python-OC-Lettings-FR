@@ -17,7 +17,7 @@ jobs:
     steps:
       - checkout
       - run: docker build -t oc-lettings-site .
-      - run: docker run oc-lettings-site python -m manage tests
+      - run: docker run oc-lettings-site python -m manage test
 
 
 workflows:

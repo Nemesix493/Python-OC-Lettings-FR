@@ -8,6 +8,5 @@ jobs:
     steps:
       - checkout
       - run: docker build -t oc-lettings-site:${CIRCLE_SHA1} .
-      - run: |
-          docker login -u "$DOCKERHUB_USERNAME" -p "$DOCKERHUB_PASSWORD"
+      - run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - run: docker push oc-lettings-site:${CIRCLE_SHA1}

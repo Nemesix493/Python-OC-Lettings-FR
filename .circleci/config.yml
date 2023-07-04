@@ -15,7 +15,8 @@ jobs:
     machine:
       image: ubuntu-2004:2022.07.1
     steps:
-      - run: echo "test job"
+      - run: docker build -t oc-lettings-site
+      - run: docker run oc-lettings-site python -m manage tests
 
 
 workflows:
@@ -28,9 +29,9 @@ workflows:
               only: master
   test-worklow:
     jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - master
-                - develop
+      - test
+          #filters:
+            #branches:
+              #only:
+                #- master
+                #- develop

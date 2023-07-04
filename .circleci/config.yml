@@ -11,3 +11,12 @@ jobs:
       - run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
       - run: docker tag oc-lettings-site:${CIRCLE_SHA1} $DOCKERHUB_USERNAME/oc-lettings-site:${CIRCLE_SHA1}
       - run: docker push $DOCKERHUB_USERNAME/oc-lettings-site:${CIRCLE_SHA1}
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master

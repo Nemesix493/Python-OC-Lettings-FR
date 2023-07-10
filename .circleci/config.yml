@@ -32,8 +32,8 @@ workflows:
   test-worklow:
     jobs:
       - test
-          #filters:
-            #branches:
-              #only:
-                #- master
-                #- develop
+          filters:
+            branches:
+              only:
+                - master
+                - develop

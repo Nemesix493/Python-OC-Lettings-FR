@@ -1,0 +1,39 @@
+# CircleCI configuration file
+
+version: 2.1
+jobs:
+  build:
+    machine:
+      image: ubuntu-2004:2022.07.1
+    steps:
+      - checkout
+      - run: docker build -t oc-lettings-site:${CIRCLE_SHA1} .
+      - run: docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD
+      - run: docker tag oc-lettings-site:${CIRCLE_SHA1} $DOCKERHUB_USERNAME/oc-lettings-site:${CIRCLE_SHA1}
+      - run: docker push $DOCKERHUB_USERNAME/oc-lettings-site:${CIRCLE_SHA1}
+  test:
+    machine:
+      image: ubuntu-2004:2022.07.1
+    steps:
+      - checkout
+      - run: docker build -t oc-lettings-site .
+      - run: docker run oc-lettings-site python flake8
+      - run: docker run oc-lettings-site python -m manage test
+
+
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: master
+  test-worklow:
+    jobs:
+      - test
+          filters:
+            branches:
+              only:
+                - master
+                - develop

@@ -1,5 +1,5 @@
-from .functional_tests import BaseSiteTest
-from .unit_tests import BaseSiteViewsTest
+from .functional_tests import BaseSiteTest  # noqa: F401
+from .unit_tests import BaseSiteViewsTest  # noqa: F401
 
 
 def test_dummy():

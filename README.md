@@ -75,3 +75,26 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+
+## Déploiement
+### Configuration du serveur de production
+#### Variables d'environnement
+
+Sur le serveur de production, il faut mettre en place quelques variables d'environnement :
+
+- ENV = PRODUCTION
+- DJANGO_SECRET_KEY = CLÉ_SECRÈTE_DE_PRODUCTION
+- DATABASE_URL de la forme suivante : 'postgres://<utilisateur>:<mot_de_passe>@<adresse_du_serveur_de_base_de_données>/<nom_de_la_base_de_données>'
+
+Pour utiliser un autre serveur de base de données que PostgreSQL, consultez la documentation suivante :
+
+- [Documentation de Django](https://docs.djangoproject.com/en/3.0/ref/databases/)
+- [Page PyPi de dj-database-url](https://pypi.org/project/dj-database-url/)
+
+### Fichiers statiques et médias
+
+Pour utiliser des fichiers statiques et des médias, on peut utiliser WhiteNoise ou mettre en place une autre solution. Pour utiliser WhiteNoise, il suffit de décommenter les lignes suivantes dans les paramètres de production :
+
+- `STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'`
+- `MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']`

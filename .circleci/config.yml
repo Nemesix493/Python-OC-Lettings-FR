@@ -62,14 +62,15 @@ jobs:
 
 workflows:
   version: 2
-  build-and-deploy:
+  test-build-deploy:
     jobs:
-      - build:
+      - test:
           filters:
             branches:
-              only: master
-          require: test
-      - test:
+              only:
+                - master
+                - develop
+      - build:
           filters:
             branches:
               only: master
@@ -77,11 +78,3 @@ workflows:
           filters:
             branches:
               only: master
-          require: test
-
-  test-worklow:
-    jobs:
-      - test:
-          filters:
-            branches:
-              only: develop

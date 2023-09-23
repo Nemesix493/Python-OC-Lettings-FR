@@ -78,6 +78,39 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 
 ## Déploiement
+### CICD
+
+Pour le CI/CD, actuellement il s'agit de CircleCI.
+#### CircleCI
+
+Le fichier de configuration du pipeline (./.circleci/config.yml) contient 3 jobs :
+
+1. Le job de test, qui installe les dépendances et exécute les tests.
+2. Le job de build, qui construit l'image Docker et la pousse sur le Docker Hub.
+3. Le job de déploiement, qui déploie l'application en production.
+
+Pour le job de build, il faut ajouter les variables d'environnement suivantes sur CircleCI :
+
+- DOCKERHUB_USERNAME
+- DOCKERHUB_PASSWORD
+
+[!NOTE]
+Il faudra modifier si besoin le nom du repo Docker ici "oc-lettings-site" !
+
+Pour le job de déploiement, il faut ajouter les variables d'environnement suivantes sur CircleCI :
+
+- HEROKU_APP_NAME
+- HEROKU_API_KEY
+
+Le job de déploiement exécute plusieurs commandes :
+
+1. "Deploy to Heroku" qui déploie l'application sur Heroku.
+2. "Migrations" qui exécute les migrations.
+3. "Load dumped data" qui charge le dump de la base de données depuis le fichier ./dumped_data/data.json.
+
+[!IMPORTANT]
+S'il n'y a pas de dump à charger ou que l'on ne souhaite pas le charger, il faut penser à commenter le bloc "Load dumped data".
+
 ### Configuration du serveur de production
 #### Variables d'environnement
 

@@ -75,3 +75,63 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+
+## Déploiement
+### CICD
+
+Pour le CI/CD, actuellement il s'agit de CircleCI.
+#### CircleCI
+
+Le fichier de configuration du pipeline (./.circleci/config.yml) contient 3 jobs :
+
+1. Le job de test, qui installe les dépendances et exécute les tests.
+2. Le job de build, qui construit l'image Docker et la pousse sur le Docker Hub.
+3. Le job de déploiement, qui déploie l'application en production.
+
+Pour le job de build, il faut ajouter les variables d'environnement suivantes sur CircleCI :
+
+- DOCKERHUB_USERNAME
+- DOCKERHUB_PASSWORD
+
+[!NOTE]
+Il faudra modifier si besoin le nom du repo Docker ici "oc-lettings-site" !
+
+Pour le job de déploiement, il faut ajouter les variables d'environnement suivantes sur CircleCI :
+
+- HEROKU_APP_NAME
+- HEROKU_API_KEY
+
+Le job de déploiement exécute plusieurs commandes :
+
+1. "Deploy to Heroku" qui déploie l'application sur Heroku.
+2. "Migrations" qui exécute les migrations.
+3. "Load dumped data" qui charge le dump de la base de données depuis le fichier ./dumped_data/data.json.
+
+[!IMPORTANT]
+S'il n'y a pas de dump à charger ou que l'on ne souhaite pas le charger, il faut penser à commenter le bloc "Load dumped data".
+
+### Configuration du serveur de production
+#### Variables d'environnement
+
+Sur le serveur de production, il faut mettre en place quelques variables d'environnement :
+
+- ENV = PRODUCTION
+- DJANGO_SECRET_KEY = CLÉ_SECRÈTE_DE_PRODUCTION
+- DATABASE_URL de la forme suivante : 'postgres://<utilisateur>:<mot_de_passe>@<adresse_du_serveur_de_base_de_données>/<nom_de_la_base_de_données>'
+
+Pour utiliser un autre serveur de base de données que PostgreSQL, consultez la documentation suivante :
+
+- [Documentation de Django](https://docs.djangoproject.com/en/3.0/ref/databases/)
+- [Page PyPi de dj-database-url](https://pypi.org/project/dj-database-url/)
+
+### Fichiers statiques et médias
+
+Pour utiliser des fichiers statiques et des médias, on peut utiliser WhiteNoise ou mettre en place une autre solution.
+
+Pour utiliser WhiteNoise, il suffit de décommenter les lignes suivantes dans les paramètres de production :
+
+- `STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'`
+- `MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']`
+
+et ajouter whitenoise au requirements.txt

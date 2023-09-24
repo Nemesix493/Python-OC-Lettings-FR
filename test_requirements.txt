@@ -1,0 +1,6 @@
+Django==3.2
+flake8==3.7.0
+selenium==4.10.0
+selenium-browser==0.0.15
+selenium-chrome==0.0.29
+selenium-firefox==2.0.8

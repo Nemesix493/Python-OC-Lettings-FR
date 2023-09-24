@@ -14,8 +14,8 @@ SECRET_KEY = os.environ.get(
 ALLOWED_HOSTS = ["*"]
 
 # White noise configuration
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-# MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES = {

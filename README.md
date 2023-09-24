@@ -130,9 +130,7 @@ Pour utiliser un autre serveur de base de données que PostgreSQL, consultez la 
 
 Pour utiliser des fichiers statiques et des médias, on peut utiliser WhiteNoise ou mettre en place une autre solution.
 
-Pour utiliser WhiteNoise, il suffit de décommenter les lignes suivantes dans les paramètres de production :
+Pour utiliser une autre solution, il faut modifier ces deux lignes dans le fichier de settings de production.
 
 - `STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'`
 - `MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']`
-
-et ajouter whitenoise au requirements.txt

@@ -15,7 +15,7 @@ ALLOWED_HOSTS = ["*"]
 
 # White noise configuration
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']
+MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware']  # noqa: F405
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES = {

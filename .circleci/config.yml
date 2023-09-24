@@ -54,7 +54,7 @@ jobs:
       - run: sudo apt install python3
       - run: sudo apt install firefox
       - run: pip install --upgrade pip
-      - run: pip3 install -r requirements.txt
+      - run: pip3 install -r test_requirements.txt
       - run: python3 -m flake8
       - run: python3 -m manage test
       

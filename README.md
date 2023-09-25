@@ -1,4 +1,4 @@
-version = 0.0.5
+version = 0.0.6
 ## Résumé
 
 Site web d'Orange County Lettings

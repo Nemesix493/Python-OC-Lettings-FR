@@ -35,7 +35,8 @@ jobs:
               -H "Content-Type: application/json" \
               -d '{
                 "attach": true,
-                "command": "python manage.py migrate"
+                "command": "python manage.py migrate",
+                "type": "run"
               }'
       # Load dumped data
       - run:
@@ -47,7 +48,8 @@ jobs:
               -H "Content-Type: application/json" \
               -d '{
                 "attach": true,
-                "command": "python manage.py loaddata dumped_data/data.json --format=json"
+                "command": "python manage.py loaddata dumped_data/data.json --format=json",
+                "type": "run"
               }'
 
   test:

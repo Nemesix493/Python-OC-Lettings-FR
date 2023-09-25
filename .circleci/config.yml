@@ -30,7 +30,6 @@ jobs:
               -H "Accept: application/vnd.heroku+json; version=3" \
               -H "Content-Type: application/json" \
               -d '{
-                "attach": true,
                 "command": "migrate"
               }'
       # Load dumped data
@@ -42,7 +41,6 @@ jobs:
               -H "Accept: application/vnd.heroku+json; version=3" \
               -H "Content-Type: application/json" \
               -d '{
-                "attach": true,
                 "command": "load_data"
               }'
   test:

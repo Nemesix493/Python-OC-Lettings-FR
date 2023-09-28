@@ -121,6 +121,7 @@ Sur le serveur de production, il faut mettre en place quelques variables d'envir
 - ENV = PRODUCTION
 - DJANGO_SECRET_KEY = CLÉ_SECRÈTE_DE_PRODUCTION
 - DATABASE_URL de la forme suivante : 'postgres://<utilisateur>:<mot_de_passe>@<adresse_du_serveur_de_base_de_données>/<nom_de_la_base_de_données>'
+- SENTRY_DSN de la forme suivante : 'https://<clé_publique>@<hôte>.ingest.sentry.io/<id_projet>'
 
 Pour utiliser un autre serveur de base de données que PostgreSQL, consultez la documentation suivante :
 

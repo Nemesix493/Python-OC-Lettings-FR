@@ -26,7 +26,7 @@ DATABASES = {
 
 
 sentry_sdk.init(
-    dsn=os.getenv('SENTRY_LINK'),
+    dsn=os.getenv('SENTRY_DSN'),
     integrations=[DjangoIntegration()],
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth) you may enable sending PII data.

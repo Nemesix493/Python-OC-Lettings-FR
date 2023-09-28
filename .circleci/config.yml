@@ -41,7 +41,7 @@ jobs:
               -H "Accept: application/vnd.heroku+json; version=3" \
               -H "Content-Type: application/json" \
               -d '{
-                "command": "load_data"
+                "command": "python manage.py loaddata dumped_data/data.json --format=json"
               }'
   test:
     machine:
@@ -68,10 +68,14 @@ workflows:
                 - master
                 - develop
       - build:
+          requires:
+            - test
           filters:
             branches:
               only: master
       - deploy:
+          requires:
+            - test
           filters:
             branches:
               only: master

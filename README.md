@@ -1,4 +1,4 @@
-version = 0.1.0
+version = 0.1.1
 ## Résumé
 
 Site web d'Orange County Lettings
@@ -102,6 +102,10 @@ Pour le job de déploiement, il faut ajouter les variables d'environnement suiva
 
 - HEROKU_APP_NAME
 - HEROKU_API_KEY
+- DJANGO_SECRET_KEY = CLÉ_SECRÈTE_DE_PRODUCTION
+> [!IMPORTANT]
+> Il faut **impérativement** utiliser une nouvelle clé secrète pour la production.
+- SENTRY_DSN de la forme suivante : 'https://<clé_publique>@<hôte>.ingest.sentry.io/<id_projet>'
 
 Le job de déploiement exécute plusieurs commandes :
 
@@ -114,14 +118,6 @@ Le job de déploiement exécute plusieurs commandes :
 > S'il n'y a pas de dump à charger ou que l'on ne souhaite pas le charger, il faut penser à commenter le bloc "Load dumped data".
 
 ### Configuration du serveur de production
-#### Variables d'environnement
-
-Sur le serveur de production, il faut mettre en place quelques variables d'environnement :
-
-- ENV = PRODUCTION
-- DJANGO_SECRET_KEY = CLÉ_SECRÈTE_DE_PRODUCTION
-- DATABASE_URL de la forme suivante : 'postgres://<utilisateur>:<mot_de_passe>@<adresse_du_serveur_de_base_de_données>/<nom_de_la_base_de_données>'
-- SENTRY_DSN de la forme suivante : 'https://<clé_publique>@<hôte>.ingest.sentry.io/<id_projet>'
 
 Pour utiliser un autre serveur de base de données que PostgreSQL, consultez la documentation suivante :
 

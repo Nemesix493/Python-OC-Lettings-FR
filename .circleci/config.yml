@@ -16,33 +16,20 @@ jobs:
       image: ubuntu-2004:2022.07.1
     steps:
       - checkout
-      # Deploy to Heroku
+      # install dependecies to deploy scripts
+      - run: sudo apt install python3
+      - run: pip3 install requests
+
+      # Deploy to Heroku and migrate
       - run:
-          name: Deploy to Heroku
+          name: Deploy to Heroku and migrate
           command: |
-            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
-      # Migrations
-      - run:
-          name: Migrations
-          command: |
-            curl -X POST https://api.heroku.com/apps/$HEROKU_APP_NAME/dynos \
-              -H "Authorization: Bearer $HEROKU_API_KEY" \
-              -H "Accept: application/vnd.heroku+json; version=3" \
-              -H "Content-Type: application/json" \
-              -d '{
-                "command": "migrate"
-              }'
+            python3 -m deploy
       # Load dumped data
       - run:
           name: Load dumped data
           command: |
-            curl -X POST https://api.heroku.com/apps/$HEROKU_APP_NAME/dynos \
-              -H "Authorization: Bearer $HEROKU_API_KEY" \
-              -H "Accept: application/vnd.heroku+json; version=3" \
-              -H "Content-Type: application/json" \
-              -d '{
-                "command": "python manage.py loaddata dumped_data/data.json --format=json"
-              }'
+            python3 -m load_data
   test:
     machine:
       image: ubuntu-2004:2022.07.1

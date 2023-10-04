@@ -1,0 +1,3 @@
+
+HEROKU_API_KEY = None
+HEROKU_APP_NAME = None

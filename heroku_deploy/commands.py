@@ -1,5 +1,4 @@
 import requests
-import re
 import time
 import subprocess
 
@@ -71,19 +70,26 @@ def patch_config_vars(config_vars):
 
 def get_exit_code(logplex_url: str, command: str) -> int | None:
     session_logs = requests.get(url=logplex_url)
-    is_match = len(re.findall(
-        pattern='Process exited with status',
-        string=str(session_logs.content)
-    )) >= 1
+    log_lines = session_logs.content.decode('utf-8').split('\n')
+    is_match = (
+        'Process exited with status' in
+        [
+            line[-28:-2]
+            for line in log_lines
+        ]
+    )
     if is_match:
-        exit_code = re.findall(
-            pattern='Process exited with status {1}([0-9])',
-            string=str(session_logs.content)
-        )[0]
+        exit_code = None
+        for line in log_lines:
+            if line[-28:-2] == 'Process exited with status':
+                exit_code = line[-1]
         if exit_code == '0':
             return 0
         else:
-            raise Exception(f'Command ({command}) failed: exited with code {exit_code}')
+            raise Exception(
+                f'Command ({command}) failed: exited with code {exit_code}\n'
+                f'Here is the logs : \n {str(session_logs.content)}'
+            )
     else:
         return None
 

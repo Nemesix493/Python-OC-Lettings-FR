@@ -16,12 +16,13 @@ def is_app_exist() -> bool:
 
 
 @need_initialization
-def create_app() -> requests.models.Response:
+def create_app(additional_data: dict = {}) -> requests.models.Response:
     return HerokuAPICall.app_post(
         token=settings.HEROKU_API_KEY,
         data={
             'name': settings.HEROKU_APP_NAME,
-            'region': 'eu'
+            'region': 'eu',
+            **additional_data
         }
     )
 
@@ -120,13 +121,66 @@ def run_command(command: str, max_time: int = 900) -> None:
     raise Exception(f'Command ({command}) did not finish in time : {max_time}s')
 
 
+def run_terminal_command(command: str, command_name: str, display_output: bool = True, return_output: bool = False):  # noqa: E501
+    try:
+        output = subprocess.check_output(command, shell=True, universal_newlines=True)
+        if display_output:
+            print(f"{command_name} output:")
+            print(output)
+            if return_output:
+                return output
+    except subprocess.CalledProcessError as e:
+        raise Exception(f"{command_name} failed with return code:", e.returncode)
+
+
 @need_initialization
 def push_to_git_heroku():
     command = f'git push https://heroku:{settings.HEROKU_API_KEY}'\
         f'@git.heroku.com/{settings.HEROKU_APP_NAME}.git master'
-    try:
-        output = subprocess.check_output(command, shell=True, universal_newlines=True)
-        print("Git push output:")
-        print(output)
-    except subprocess.CalledProcessError as e:
-        raise Exception("Git push failed with return code:", e.returncode)
+    run_terminal_command(
+        command=command,
+        command_name='Git Push Heroku',
+        display_output=False
+    )
+
+
+@need_initialization
+def push_to_docker_heroku(circle_sha1: str, dockerhub_username: str, dockerhub_password: str):
+    # login to docker hub
+    login_docker_hub = f'docker login -u {dockerhub_username} -p {dockerhub_password}'
+    run_terminal_command(
+        command=login_docker_hub,
+        command_name='Login to Docker hub'
+    )
+    pull_image = f'docker pull {dockerhub_username}/oc-lettings-site:{circle_sha1}'
+    run_terminal_command(
+        command=pull_image,
+        command_name='Pull image from Docker hub'
+    )
+
+    build_docker_image = f'docker build -t oc-lettings-site:{circle_sha1} .'
+    run_terminal_command(
+        command=build_docker_image,
+        command_name='Build docker image',
+        display_output=False
+    )
+    # login to heroku docker
+    loding_heroku_docker = f'docker login --username={settings.HEROKU_APP_NAME} '\
+        f'--password={settings.HEROKU_API_KEY} registry.heroku.com'
+    run_terminal_command(
+        command=loding_heroku_docker,
+        command_name='Login to Docker Heroku'
+    )
+    # tag the image to heroku docker registry
+    tag_image_heroku_docker = f'docker tag oc-lettings-site:{circle_sha1}'\
+        f'registry.heroku.com/{settings.HEROKU_APP_NAME}/web'
+    run_terminal_command(
+        command=tag_image_heroku_docker,
+        command_name='Tag Image to Heroku Docker registry'
+    )
+    # push the image to heroku docker registry
+    push_image_heroku_docker = f'docker push registry.heroku.com/{settings.HEROKU_APP_NAME}/web'
+    run_terminal_command(
+        command=push_image_heroku_docker,
+        command_name='Push image to Heroku Docker registry'
+    )

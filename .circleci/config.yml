@@ -19,6 +19,7 @@ jobs:
       # install dependecies to deploy scripts
       - run: sudo apt install python3
       - run: pip3 install requests
+      - run: curl https://cli-assets.heroku.com/install.sh | sh
 
       # Deploy to Heroku and migrate
       - run:

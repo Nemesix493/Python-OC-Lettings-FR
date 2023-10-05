@@ -22,7 +22,7 @@ jobs:
       - run: curl https://cli-assets.heroku.com/install.sh | sh
       - run: echo "machine api.heroku.com" >> ~/.netrc
       - run: echo "login verquerre.kevin@gmail.com" >> ~/.netrc
-      - run: echo "password 9f1c8057-f0b3-4899-94b1-b63977c0c09a" >> ~/.netrc
+      - run: echo "password dc046824-48b2-4a3a-a7de-fec50a34b8c4" >> ~/.netrc
 
       # Deploy to Heroku and migrate
       - run:
@@ -34,7 +34,7 @@ jobs:
           name: Load dumped data
           command: |
             python3 -m load_data
-      - run: heroku login
+      - run: heroku logs --app oc-lettings-site-verquerre
   test:
     machine:
       image: ubuntu-2004:2022.07.1

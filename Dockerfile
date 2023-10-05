@@ -10,7 +10,6 @@ RUN useradd -u 8877 nonroot
 
 USER nonroot
 
-ENV DJANGO_SECRET_KEY='fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
 ENV ENV='DOCKER_DEV'
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1

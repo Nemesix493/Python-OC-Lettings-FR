@@ -6,9 +6,7 @@ from .base import *  # noqa: F401, F403
 
 DEBUG = False
 
-SECRET_KEY = os.environ.get(
-    "DJANGO_SECRET_KEY",
-)
+SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
 
 ALLOWED_HOSTS = ["*"]
 

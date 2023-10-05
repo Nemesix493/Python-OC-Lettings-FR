@@ -67,6 +67,6 @@ heroku_deploy.commands.run_terminal_command(
     command_name='Push to container registry'
 )
 heroku_deploy.commands.run_terminal_command(
-     command=f'heroku container:release web --app {heroku_app_name_docker}',
+    command=f'heroku container:release web --app {heroku_app_name_docker}',
     command_name='Release to container registry'
 )

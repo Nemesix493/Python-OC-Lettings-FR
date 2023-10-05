@@ -19,10 +19,10 @@ jobs:
       # install dependecies to deploy scripts
       - run: sudo apt install python3
       - run: pip3 install requests
-      - run: curl https://cli-assets.heroku.com/install.sh | sh
-      - run: echo "machine api.heroku.com" >> ~/.netrc
-      - run: echo "login verquerre.kevin@gmail.com" >> ~/.netrc
-      - run: echo "password $HEROKU_API_KEY" >> ~/.netrc
+      #- run: curl https://cli-assets.heroku.com/install.sh | sh
+      #- run: echo "machine api.heroku.com" >> ~/.netrc
+      #- run: echo "login verquerre.kevin@gmail.com" >> ~/.netrc
+      #- run: echo "password $HEROKU_API_KEY" >> ~/.netrc
 
       # Deploy to Heroku and migrate
       - run:

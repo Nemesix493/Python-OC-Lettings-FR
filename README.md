@@ -109,10 +109,8 @@ Pour le job de déploiement, il faut ajouter les variables d'environnement suiva
 
 Le job de déploiement exécute plusieurs commandes :
 
-1. "Deploy to Heroku" qui déploie l'application sur Heroku.
-2. "Wait deploy to heroku complete" qui s'assure que le serveur est bien démarré avant la suite.
-3. "Migrations" qui exécute les migrations.
-4. "Load dumped data" qui charge le dump de la base de données depuis le fichier ./dumped_data/data.json.
+1. "Deploy to Heroku and migrate" qui déploie l'application sur Heroku et qui exécute les migrations.
+2. "Load dumped data" qui charge le dump de la base de données depuis le fichier ./dumped_data/data.json.
 
 > [!IMPORTANT]
 > S'il n'y a pas de dump à charger ou que l'on ne souhaite pas le charger, il faut penser à commenter le bloc "Load dumped data".
